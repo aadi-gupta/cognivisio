@@ -156,16 +156,8 @@ export default function ColorPlayerPage() {
       <main
         className={styles.page}
         onPointerDown={revealControls}
-        style={{ background: color.hex }}
+        style={{ background: color.hex, backgroundImage: "none" }}
       >
-        {!sessionStarted ? (
-          <button type="button" className={styles.startOverlay} onClick={startSession}>
-            <span className={styles.startCard}>
-              <strong className={styles.startTitle}>Start Therapy</strong>
-              <span className={styles.startCopy}>Tap once to begin sound and keep the screen awake.</span>
-            </span>
-          </button>
-        ) : null}
         <Link
           href="/colors"
           className={`${styles.backHint} ${showBack ? styles.backVisible : ""}`}
