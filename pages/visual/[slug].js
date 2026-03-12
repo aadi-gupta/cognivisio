@@ -64,6 +64,7 @@ export default function VisualPlayerPage() {
       phaseDuration: 12,
       phaseTransitionDuration: 3,
       invertDuration: 10,
+      paletteMode: exercise.paletteMode,
     });
     engine.start();
 

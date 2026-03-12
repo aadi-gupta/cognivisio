@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useMemo, useState } from "react";
 import styles from "../styles/Visual.module.css";
 import { visualExercises } from "../lib/visualExercises";
 
@@ -178,6 +179,14 @@ function PatternIcon({ type }) {
     );
   }
 
+  if (type === "cross") {
+    return (
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M40 16h20v24h24v20H60v24H40V60H16V40h24Z" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+
   return (
     <svg viewBox="0 0 100 100" aria-hidden="true">
       <path d="M50 16v18m0 32v18M16 50h18m32 0h18M50 28l14 14-14 14-14-14Z" fill="#7dd31d" stroke="#7dd31d" />
@@ -186,6 +195,22 @@ function PatternIcon({ type }) {
 }
 
 export default function VisualPage() {
+  const pageSize = 18;
+  const [page, setPage] = useState(0);
+  const totalPages = Math.ceil(visualExercises.length / pageSize);
+  const visibleExercises = useMemo(() => {
+    const start = page * pageSize;
+    const items = visualExercises.slice(start, start + pageSize);
+
+    return [
+      ...items,
+      ...Array.from({ length: Math.max(0, pageSize - items.length) }, (_, index) => ({
+        slug: `placeholder-${page}-${index}`,
+        placeholder: true,
+      })),
+    ];
+  }, [page]);
+
   return (
     <>
       <Head>
@@ -210,19 +235,54 @@ export default function VisualPage() {
 
         <section className={styles.boardWrap}>
           <div className={styles.board}>
+            <div className={styles.boardHeader}>
+              <button
+                type="button"
+                className={styles.pagerButton}
+                onClick={() => setPage((value) => Math.max(0, value - 1))}
+                disabled={page === 0}
+                aria-label="Previous visual patterns"
+              >
+                ‹
+              </button>
+              <div className={styles.pageDots} aria-hidden="true">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <span
+                    key={index}
+                    className={`${styles.pageDot} ${index === page ? styles.pageDotActive : ""}`}
+                  />
+                ))}
+              </div>
+              <button
+                type="button"
+                className={styles.pagerButton}
+                onClick={() => setPage((value) => Math.min(totalPages - 1, value + 1))}
+                disabled={page === totalPages - 1}
+                aria-label="Next visual patterns"
+              >
+                ›
+              </button>
+            </div>
             <div className={styles.grid}>
-              {visualExercises.map((exercise) => (
-                <Link
-                  key={exercise.slug}
-                  href={`/visual/${exercise.slug}`}
-                  className={styles.tile}
-                  aria-label={exercise.title}
-                >
-                  <span className={styles.tileIcon}>
-                    <PatternIcon type={exercise.phases[0].type} />
-                  </span>
-                </Link>
-              ))}
+              {visibleExercises.map((exercise, index) => {
+                if (exercise.placeholder) {
+                  return <span key={exercise.slug} className={styles.tilePlaceholder} aria-hidden="true" />;
+                }
+
+                return (
+                  <Link
+                    key={exercise.slug}
+                    href={`/visual/${exercise.slug}`}
+                    className={`${styles.tile} ${exercise.variant === "color" ? styles[`tileColor${(page * pageSize + index) % 6}`] : styles.tileMono}`}
+                    aria-label={exercise.title}
+                    title={exercise.title}
+                  >
+                    <span className={styles.tileIcon}>
+                      <PatternIcon type={exercise.phases[0].type} />
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>

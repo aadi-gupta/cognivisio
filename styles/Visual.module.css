@@ -8,11 +8,11 @@
   align-items: center;
   gap: clamp(0.6rem, 1.8vw, 1.1rem);
   background:
-    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.35) 0 0.35rem, transparent 0.4rem),
-    radial-gradient(circle at 86% 16%, rgba(255, 255, 255, 0.28) 0 0.3rem, transparent 0.35rem),
-    radial-gradient(circle at 22% 82%, rgba(255, 255, 255, 0.28) 0 0.4rem, transparent 0.45rem),
-    radial-gradient(circle at 74% 78%, rgba(255, 255, 255, 0.28) 0 0.4rem, transparent 0.45rem),
-    linear-gradient(180deg, #9ddaf0 0%, #a6e1f3 100%);
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.28) 0 0.35rem, transparent 0.4rem),
+    radial-gradient(circle at 86% 16%, rgba(255, 168, 168, 0.22) 0 0.3rem, transparent 0.35rem),
+    radial-gradient(circle at 22% 82%, rgba(255, 255, 255, 0.18) 0 0.4rem, transparent 0.45rem),
+    radial-gradient(circle at 74% 78%, rgba(255, 145, 145, 0.18) 0 0.4rem, transparent 0.45rem),
+    linear-gradient(180deg, #8fd5ff 0%, #5fa9f6 55%, #4f87db 100%);
 }
 
 .skyDecor {
@@ -58,8 +58,8 @@
   width: clamp(4.8rem, 10vw, 7.8rem);
   height: clamp(4.8rem, 10vw, 7.8rem);
   border-radius: 2.2rem;
-  background: linear-gradient(180deg, #2d9eb9 0%, #2492ac 100%);
-  box-shadow: 0 14px 0 rgba(0, 0, 0, 0.08);
+  background: linear-gradient(180deg, #ff7b7b 0%, #f35555 100%);
+  box-shadow: 0 14px 0 rgba(155, 45, 45, 0.2);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -68,7 +68,7 @@
 .backArrow {
   font-size: 5.4rem;
   line-height: 1;
-  color: #f8fdff;
+  color: #fffaf8;
   transform: translateX(-0.18rem);
 }
 
@@ -85,28 +85,119 @@
   width: min(100%, 980px, calc((100dvh - 2rem) * 1.42));
   padding: clamp(0.6rem, 1.6vw, 1.35rem);
   border-radius: 2.4rem;
-  background: linear-gradient(180deg, #f08a40 0%, #ea7b35 100%);
-  box-shadow: 0 18px 0 rgba(0, 0, 0, 0.08);
+  background: linear-gradient(180deg, #266fdb 0%, #1d58c5 100%);
+  box-shadow: 0 18px 0 rgba(13, 58, 135, 0.24);
+}
+
+.boardHeader {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.55rem;
+}
+
+.pagerButton {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff6f4;
+  font: inherit;
+  font-size: 1.8rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagerButton:disabled {
+  opacity: 0.35;
+}
+
+.pageDots {
+  display: flex;
+  justify-content: center;
+  gap: 0.32rem;
+}
+
+.pageDot {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.pageDotActive {
+  width: 1rem;
+  background: #ffd9d9;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0.8rem;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.6rem;
 }
 
 .tile {
+  position: relative;
   aspect-ratio: 1 / 1;
   border: 0;
   border-radius: 1rem;
-  background: #f2efef;
-  color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+  padding: 0.45rem;
   transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.tileMono {
+  background: linear-gradient(180deg, #ffffff 0%, #eef3ff 100%);
+  color: #000;
+  box-shadow: inset 0 0 0 1px rgba(24, 51, 99, 0.08);
+}
+
+.tileColor {
+  background: linear-gradient(180deg, #fff8ce 0%, #ffe8b0 100%);
+  color: #f04a32;
+  box-shadow: inset 0 0 0 1px rgba(240, 74, 50, 0.08);
+}
+
+.tileColor0 {
+  background: linear-gradient(180deg, #ffe2e2 0%, #ffc0c0 100%);
+  color: #d9364c;
+  box-shadow: inset 0 0 0 1px rgba(217, 54, 76, 0.1);
+}
+
+.tileColor1 {
+  background: linear-gradient(180deg, #dff3ff 0%, #bde7ff 100%);
+  color: #1178d8;
+  box-shadow: inset 0 0 0 1px rgba(17, 120, 216, 0.1);
+}
+
+.tileColor2 {
+  background: linear-gradient(180deg, #fff0f0 0%, #ffd7d7 100%);
+  color: #cf4a6f;
+  box-shadow: inset 0 0 0 1px rgba(207, 74, 111, 0.1);
+}
+
+.tileColor3 {
+  background: linear-gradient(180deg, #e9f8ff 0%, #cdeefe 100%);
+  color: #1f8c95;
+  box-shadow: inset 0 0 0 1px rgba(31, 140, 149, 0.1);
+}
+
+.tileColor4 {
+  background: linear-gradient(180deg, #ffe8ef 0%, #ffc8d7 100%);
+  color: #df5578;
+  box-shadow: inset 0 0 0 1px rgba(223, 85, 120, 0.1);
+}
+
+.tileColor5 {
+  background: linear-gradient(180deg, #e5efff 0%, #cbdcff 100%);
+  color: #4b6fd1;
+  box-shadow: inset 0 0 0 1px rgba(75, 111, 209, 0.1);
 }
 
 .tile:hover {
@@ -124,6 +215,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.tilePlaceholder {
+  aspect-ratio: 1 / 1;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .tileIcon svg {
@@ -160,10 +257,6 @@
 }
 
 @media (max-width: 720px) {
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .board {
     width: min(100%, calc((100dvh - 6.8rem) * 0.66));
   }
@@ -181,11 +274,21 @@
   }
 
   .grid {
-    gap: 0.55rem;
+    gap: 0.45rem;
   }
 
   .tile {
     border-radius: 0.8rem;
+  }
+
+  .boardHeader {
+    margin-bottom: 0.4rem;
+  }
+
+  .pagerButton {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1.55rem;
   }
 }
 
@@ -215,8 +318,8 @@
   }
 
   .grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.55rem;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.42rem;
   }
 
   .tile {
