@@ -1,0 +1,226 @@
+.page {
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
+  padding: clamp(0.65rem, 2vw, 1rem);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: clamp(0.6rem, 1.8vw, 1.1rem);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.35) 0 0.35rem, transparent 0.4rem),
+    radial-gradient(circle at 86% 16%, rgba(255, 255, 255, 0.28) 0 0.3rem, transparent 0.35rem),
+    radial-gradient(circle at 22% 82%, rgba(255, 255, 255, 0.28) 0 0.4rem, transparent 0.45rem),
+    radial-gradient(circle at 74% 78%, rgba(255, 255, 255, 0.28) 0 0.4rem, transparent 0.45rem),
+    linear-gradient(180deg, #9ddaf0 0%, #a6e1f3 100%);
+}
+
+.skyDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.floatItem {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.5);
+  user-select: none;
+}
+
+.starOne {
+  top: 8%;
+  right: 11%;
+  font-size: 1rem;
+}
+
+.starTwo {
+  bottom: 12%;
+  right: 8%;
+  font-size: 0.9rem;
+}
+
+.cloud {
+  top: 20%;
+  right: 22%;
+  font-size: 1.2rem;
+}
+
+.spark {
+  bottom: 18%;
+  left: 14%;
+  font-size: 0.9rem;
+}
+
+.backButton {
+  position: relative;
+  z-index: 1;
+  align-self: start;
+  width: clamp(4.8rem, 10vw, 7.8rem);
+  height: clamp(4.8rem, 10vw, 7.8rem);
+  border-radius: 2.2rem;
+  background: linear-gradient(180deg, #2d9eb9 0%, #2492ac 100%);
+  box-shadow: 0 14px 0 rgba(0, 0, 0, 0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backArrow {
+  font-size: 5.4rem;
+  line-height: 1;
+  color: #f8fdff;
+  transform: translateX(-0.18rem);
+}
+
+.boardWrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.board {
+  width: min(100%, 980px, calc((100dvh - 2rem) * 1.42));
+  padding: clamp(0.6rem, 1.6vw, 1.35rem);
+  border-radius: 2.4rem;
+  background: linear-gradient(180deg, #f08a40 0%, #ea7b35 100%);
+  box-shadow: 0 18px 0 rgba(0, 0, 0, 0.08);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.tile {
+  aspect-ratio: 1 / 1;
+  border: 0;
+  border-radius: 1rem;
+  background: #f2efef;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.tile:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04), 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.tile:active {
+  transform: translateY(2px) scale(0.98);
+}
+
+.tileIcon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tileIcon svg {
+  width: 88%;
+  height: 88%;
+  stroke: currentColor;
+  stroke-width: 6;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-content: start;
+    gap: 0.75rem;
+  }
+
+  .backButton {
+    width: 5.2rem;
+    height: 5.2rem;
+    justify-self: start;
+  }
+
+  .backArrow {
+    font-size: 3.7rem;
+  }
+
+  .board {
+    width: min(100%, calc((100dvh - 7.2rem) * 0.66));
+  }
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .board {
+    width: min(100%, calc((100dvh - 6.8rem) * 0.66));
+  }
+}
+
+@media (max-width: 520px) {
+  .page {
+    padding: 0.75rem;
+  }
+
+  .board {
+    width: min(100%, calc((100dvh - 6.2rem) * 0.64));
+    padding: 0.65rem;
+    border-radius: 1.6rem;
+  }
+
+  .grid {
+    gap: 0.55rem;
+  }
+
+  .tile {
+    border-radius: 0.8rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 540px) {
+  .page {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    align-content: center;
+  }
+
+  .backButton {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 1.6rem;
+    justify-self: start;
+  }
+
+  .backArrow {
+    font-size: 3.4rem;
+  }
+
+  .board {
+    width: min(100%, calc((100dvh - 1.4rem) * 1.46));
+    padding: 0.6rem;
+    border-radius: 1.8rem;
+    box-shadow: 0 12px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .tile {
+    border-radius: 0.8rem;
+    padding: 0.35rem;
+  }
+}

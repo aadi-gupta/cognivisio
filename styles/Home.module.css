@@ -1,149 +1,694 @@
 .page {
-  width: min(1120px, calc(100% - 2rem));
-  margin: 0 auto;
-  padding: 2rem 0 4rem;
-}
-
-.hero {
-  padding: 5rem 0 4rem;
-}
-
-.kicker,
-.sectionLabel {
-  margin: 0 0 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.72rem;
-  color: var(--brand);
-}
-
-.hero h1,
-.panel h2,
-.feature h2 {
-  margin: 0;
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-
-.hero h1 {
-  max-width: 12ch;
-  font-size: clamp(3rem, 8vw, 6.4rem);
-}
-
-.intro {
-  max-width: 44rem;
-  margin: 1.5rem 0 0;
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--muted);
-}
-
-.actions {
+  position: relative;
+  overflow: hidden;
+  height: 100dvh;
+  width: min(100%, 100vw);
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 2rem;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.65rem, 2vw, 1rem);
+  background:
+    radial-gradient(circle at 12% 18%, var(--sky-doodle) 0 0.35rem, transparent 0.4rem),
+    radial-gradient(circle at 86% 16%, var(--sky-doodle-soft) 0 0.3rem, transparent 0.35rem),
+    radial-gradient(circle at 22% 82%, var(--sky-doodle-soft) 0 0.4rem, transparent 0.45rem),
+    radial-gradient(circle at 74% 78%, var(--sky-doodle-soft) 0 0.4rem, transparent 0.45rem),
+    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 100%);
 }
 
-.primary,
-.secondary {
+.skyDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.floatItem {
+  position: absolute;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3.2rem;
-  padding: 0 1.4rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-shadow: 0 2px 10px rgba(40, 122, 150, 0.12);
+  user-select: none;
+}
+
+.starOne {
+  top: 9%;
+  left: 12%;
+  font-size: 1.2rem;
+  animation: driftOne 6s ease-in-out infinite;
+}
+
+.starTwo {
+  top: 17%;
+  right: 18%;
+  font-size: 1rem;
+  animation: driftTwo 7s ease-in-out infinite;
+}
+
+.moon {
+  top: 12%;
+  right: 10%;
+  font-size: 1.4rem;
+  animation: driftThree 8s ease-in-out infinite;
+}
+
+.cloud {
+  bottom: 16%;
+  left: 8%;
+  font-size: 1.3rem;
+  animation: driftTwo 9s ease-in-out infinite;
+}
+
+.duck {
+  bottom: 12%;
+  right: 12%;
+  width: 1.8rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.42);
+  border-top: 0;
+  border-radius: 0 0 999px 999px;
+  transform: rotate(-8deg);
+  animation: driftOne 8s ease-in-out infinite;
+}
+
+.duck::before,
+.duck::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.duck::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  top: -0.25rem;
+  left: 0.1rem;
   border-radius: 999px;
-  border: 1px solid transparent;
-  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 
-.primary {
-  background: var(--brand);
-  color: #fff;
-  box-shadow: var(--shadow);
+.duck::after {
+  width: 0.35rem;
+  height: 0.2rem;
+  top: -0.05rem;
+  left: -0.12rem;
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
 }
 
-.secondary {
-  border-color: var(--line);
-  background: rgba(255, 255, 255, 0.66);
+.spark {
+  top: 28%;
+  left: 20%;
+  font-size: 0.95rem;
+  animation: twinkle 3.2s ease-in-out infinite;
 }
 
-.primary:hover,
-.secondary:hover {
-  transform: translateY(-2px);
+.home {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 480px);
+  max-height: calc(100dvh - 1.5rem);
 }
 
-.panel,
-.split {
-  margin-top: 2rem;
-  padding: 2rem;
-  border: 1px solid var(--line);
+.heroBadge {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.heroGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12rem;
+  height: 12rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--hero-glow-strong) 0%, var(--hero-glow-soft) 58%, transparent 72%);
+  transform: translate(-50%, -50%);
+  animation: glowPulse 3.6s ease-in-out infinite;
+}
+
+.moonBuddy {
+  position: relative;
+  width: 8.8rem;
+  height: 7.5rem;
+  animation: buddyBob 3.1s ease-in-out infinite;
+}
+
+.moonFace {
+  position: absolute;
+  right: 0.25rem;
+  bottom: 0.15rem;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--moon-body-top) 0%, var(--moon-body-bottom) 100%);
+  box-shadow: 0 14px 30px rgba(69, 124, 145, 0.22);
+}
+
+.moonFace::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 0.6rem;
+  width: 5.45rem;
+  height: 5.75rem;
+  border-radius: 50%;
+  background: var(--moon-cutout);
+}
+
+.moonEarLeft,
+.moonEarRight {
+  position: absolute;
+  top: 0.55rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--moon-ear-top) 0%, var(--moon-ear-bottom) 100%);
+  box-shadow: inset 0 -0.16rem 0 rgba(0, 0, 0, 0.05);
+}
+
+.moonEarLeft {
+  left: 2rem;
+}
+
+.moonEarRight {
+  right: 1rem;
+}
+
+.moonEyeLeft,
+.moonEyeRight {
+  position: absolute;
+  top: 2.7rem;
+  width: 0.42rem;
+  height: 0.65rem;
+  border-radius: 999px;
+  background: var(--moon-face-detail);
+  z-index: 1;
+}
+
+.moonEyeLeft {
+  left: 3.2rem;
+}
+
+.moonEyeRight {
+  right: 1.9rem;
+}
+
+.moonSmile {
+  position: absolute;
+  left: 50%;
+  bottom: 1.75rem;
+  width: 1.55rem;
+  height: 0.8rem;
+  margin-left: -0.775rem;
+  border-bottom: 0.22rem solid var(--moon-smile);
+  border-radius: 0 0 1rem 1rem;
+  z-index: 1;
+}
+
+.moonBlushLeft,
+.moonBlushRight {
+  position: absolute;
+  top: 3.8rem;
+  width: 0.95rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--moon-cheek);
+  z-index: 1;
+}
+
+.moonBlushLeft {
+  left: 2.35rem;
+}
+
+.moonBlushRight {
+  right: 1.05rem;
+}
+
+.moonStar {
+  position: absolute;
+  left: 0.35rem;
+  bottom: 0.75rem;
+  font-size: 1.45rem;
+  color: var(--hero-glow-strong);
+  text-shadow: 0 4px 14px rgba(71, 133, 153, 0.24);
+  animation: twinkle 2.8s ease-in-out infinite;
+}
+
+.title {
+  margin: 0 0 1.6rem;
+  text-align: center;
+  font-size: clamp(3.3rem, 12vw, 6rem);
+  line-height: 0.88;
+  color: var(--title-fill);
+  letter-spacing: -0.05em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-shadow:
+    -3px 0 var(--title-outline),
+    0 3px var(--title-outline),
+    3px 0 var(--title-outline),
+    0 -3px var(--title-outline),
+    0 10px 20px rgba(23, 91, 112, 0.18);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.actionCard {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 128px;
+  padding: 1.25rem 1.4rem;
   border-radius: 2rem;
-  background: var(--surface);
-  backdrop-filter: blur(14px);
-  box-shadow: var(--shadow);
+  border: 0;
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  box-shadow: 0 16px 0 rgba(0, 0, 0, 0.08);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
+.actionCard::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -30%;
+  width: 24%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.26), transparent);
+  transform: skewX(-18deg);
+  opacity: 0;
 }
 
-.card,
-.outcomeBox {
-  padding: 1.4rem;
-  border-radius: 1.4rem;
-  background: var(--surface-strong);
-  border: 1px solid var(--line);
+.actionCard:nth-child(1) {
+  background: linear-gradient(180deg, var(--tile-visual-top) 0%, var(--tile-visual-bottom) 100%);
 }
 
-.card h3 {
-  margin: 0 0 0.8rem;
-  font-size: 1.15rem;
-  line-height: 1.4;
+.actionCard:nth-child(2) {
+  background: linear-gradient(180deg, var(--tile-auditory-top) 0%, var(--tile-auditory-bottom) 100%);
 }
 
-.card p,
-.feature p,
-.outcomeBox li {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.7;
+.actionCard:nth-child(3) {
+  background: linear-gradient(180deg, var(--tile-toys-top) 0%, var(--tile-toys-bottom) 100%);
 }
 
-.split {
-  display: grid;
-  grid-template-columns: 1.4fr 0.9fr;
-  gap: 1rem;
-  align-items: start;
+.actionCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 0 rgba(0, 0, 0, 0.08);
+  filter: saturate(1.04);
 }
 
-.feature {
-  padding: 0.4rem;
+.actionCard:hover::after {
+  opacity: 1;
+  animation: cardShine 560ms ease;
 }
 
-.outcomeBox ul {
-  margin: 1rem 0 0;
-  padding-left: 1.2rem;
+.actionCard:hover .iconWrap {
+  animation: iconWiggle 520ms ease;
 }
 
-.outcomeBox li + li {
-  margin-top: 0.7rem;
+.actionCard:hover .cardTitle {
+  transform: translateX(2px);
+}
+
+.actionCard:active {
+  animation: tapBounce 240ms ease;
+  transform: translateY(4px) scale(0.98);
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08);
+}
+
+.iconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 1.25rem;
+  background: transparent;
+}
+
+.iconWrap svg {
+  width: 4rem;
+  height: 4rem;
+  stroke: var(--tile-ink);
+  fill: none;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cardTitle {
+  transition: transform 180ms ease;
+  font-size: clamp(1.75rem, 6vw, 2.35rem);
+  line-height: 1;
+  color: var(--tile-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+@keyframes cardFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes tapBounce {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(5px) scale(0.96);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes driftOne {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0.35rem, -0.45rem, 0);
+  }
+}
+
+@keyframes buddyBob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.4rem);
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes driftTwo {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-0.4rem, 0.35rem, 0);
+  }
+}
+
+@keyframes driftThree {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0.2rem, -0.35rem, 0) rotate(8deg);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes iconWiggle {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  35% {
+    transform: rotate(-8deg) scale(1.05);
+  }
+  70% {
+    transform: rotate(6deg) scale(1.04);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes cardShine {
+  0% {
+    transform: translateX(0) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(520%) skewX(-18deg);
+  }
 }
 
 @media (max-width: 840px) {
-  .grid,
-  .split {
-    grid-template-columns: 1fr;
+  .actionCard {
+    min-height: 112px;
   }
+}
 
+@media (max-width: 520px) {
   .page {
-    width: min(100% - 1.25rem, 1120px);
+    padding: 1rem;
   }
 
-  .hero {
-    padding-top: 3rem;
+  .moonBuddy {
+    width: 7.2rem;
+    height: 6.1rem;
+  }
+
+  .heroGlow {
+    width: 9rem;
+    height: 9rem;
+  }
+
+  .moonFace {
+    width: 5.7rem;
+    height: 5.7rem;
+  }
+
+  .moonFace::before {
+    left: 0.8rem;
+    top: 0.48rem;
+    width: 4.45rem;
+    height: 4.75rem;
+  }
+
+  .moonEarLeft,
+  .moonEarRight {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .moonEarLeft {
+    left: 1.65rem;
+  }
+
+  .moonEarRight {
+    right: 0.9rem;
+  }
+
+  .moonEyeLeft,
+  .moonEyeRight {
+    top: 2.15rem;
+  }
+
+  .moonEyeLeft {
+    left: 2.55rem;
+  }
+
+  .moonEyeRight {
+    right: 1.5rem;
+  }
+
+  .moonSmile {
+    bottom: 1.4rem;
+  }
+
+  .moonBlushLeft,
+  .moonBlushRight {
+    top: 3rem;
+  }
+
+  .starOne,
+  .starTwo,
+  .moon,
+  .cloud,
+  .spark {
+    font-size: 0.95rem;
+  }
+
+  .duck {
+    width: 1.5rem;
+    height: 0.85rem;
+  }
+
+  .actionCard {
+    min-height: 104px;
+    padding: 1rem 1.1rem;
+    border-radius: 1.5rem;
+  }
+
+  .iconWrap {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .iconWrap svg {
+    width: 3.3rem;
+    height: 3.3rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 540px) {
+  .page {
+    padding: 0.5rem 0.85rem;
+  }
+
+  .home {
+    width: min(100%, 960px);
+  }
+
+  .heroBadge {
+    margin-bottom: 0.25rem;
+  }
+
+  .heroGlow {
+    width: 6.8rem;
+    height: 6.8rem;
+  }
+
+  .moonBuddy {
+    width: 4.8rem;
+    height: 4.1rem;
+  }
+
+  .moonFace {
+    right: 0.15rem;
+    bottom: 0.1rem;
+    width: 3.85rem;
+    height: 3.85rem;
+  }
+
+  .moonFace::before {
+    left: 0.56rem;
+    top: 0.35rem;
+    width: 2.95rem;
+    height: 3.2rem;
+  }
+
+  .moonEarLeft,
+  .moonEarRight {
+    top: 0.3rem;
+    width: 0.82rem;
+    height: 0.82rem;
+  }
+
+  .moonEarLeft {
+    left: 1.05rem;
+  }
+
+  .moonEarRight {
+    right: 0.55rem;
+  }
+
+  .moonEyeLeft,
+  .moonEyeRight {
+    top: 1.42rem;
+    width: 0.24rem;
+    height: 0.4rem;
+  }
+
+  .moonEyeLeft {
+    left: 1.68rem;
+  }
+
+  .moonEyeRight {
+    right: 0.95rem;
+  }
+
+  .moonSmile {
+    bottom: 0.9rem;
+    width: 0.92rem;
+    height: 0.45rem;
+    margin-left: -0.46rem;
+    border-bottom-width: 0.16rem;
+  }
+
+  .moonBlushLeft,
+  .moonBlushRight {
+    top: 2rem;
+    width: 0.55rem;
+    height: 0.34rem;
+  }
+
+  .moonBlushLeft {
+    left: 1.23rem;
+  }
+
+  .moonBlushRight {
+    right: 0.7rem;
+  }
+
+  .moonStar {
+    left: 0.15rem;
+    bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .title {
+    margin-bottom: 0.75rem;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 0.9;
+  }
+
+  .cardGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .actionCard {
+    min-height: 92px;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 0.45rem;
+    padding: 0.7rem 0.5rem;
+    border-radius: 1.3rem;
+    box-shadow: 0 10px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .iconWrap {
+    width: 2.55rem;
+    height: 2.55rem;
+  }
+
+  .iconWrap svg {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .cardTitle {
+    font-size: 1.15rem;
   }
 }

@@ -1,5 +1,7 @@
 :root {
   color-scheme: light;
+  --font-body: "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-display: var(--font-fredoka), "Trebuchet MS", sans-serif;
   --bg: #f5f7f2;
   --surface: rgba(255, 255, 255, 0.8);
   --surface-strong: #ffffff;
@@ -10,20 +12,51 @@
   --brand-deep: #144c52;
   --accent: #f4b860;
   --shadow: 0 24px 60px rgba(17, 49, 58, 0.12);
+  --sky-top: #9ddaf0;
+  --sky-bottom: #a6e1f3;
+  --sky-doodle: rgba(255, 255, 255, 0.35);
+  --sky-doodle-soft: rgba(255, 255, 255, 0.28);
+  --hero-glow-strong: rgba(255, 245, 187, 0.95);
+  --hero-glow-soft: rgba(255, 245, 187, 0.2);
+  --moon-body-top: #fff6d2;
+  --moon-body-bottom: #fde28f;
+  --moon-cutout: #9ddaf0;
+  --moon-ear-top: #fff2c4;
+  --moon-ear-bottom: #f6d979;
+  --moon-face-detail: #8e6a55;
+  --moon-cheek: rgba(247, 154, 154, 0.78);
+  --moon-smile: #ef8d8b;
+  --title-fill: #ffffff;
+  --title-outline: #2f9db6;
+  --tile-visual-top: #f08a40;
+  --tile-visual-bottom: #ea7b35;
+  --tile-auditory-top: #f4b23a;
+  --tile-auditory-bottom: #eba52d;
+  --tile-toys-top: #f37645;
+  --tile-toys-bottom: #ec6a3c;
+  --tile-ink: #fffdf7;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
+body,
+#__next {
+  height: 100%;
+}
+
 html {
   scroll-behavior: smooth;
+  overflow: hidden;
 }
 
 body {
   margin: 0;
-  min-height: 100vh;
-  font-family: Georgia, "Times New Roman", serif;
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  overflow: hidden;
   background:
     radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 30%),
     linear-gradient(180deg, #fbfcf8 0%, var(--bg) 100%);

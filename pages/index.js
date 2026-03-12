@@ -1,27 +1,36 @@
 import Head from "next/head";
+import { Ear, Eye, Horse } from "@phosphor-icons/react";
 import styles from "../styles/Home.module.css";
 
-const focusAreas = [
-  "Neuro-visual exercises for tracking, focus, and coordination",
-  "Structured therapy plans for attention, processing, and balance",
-  "Mobile-first sessions designed for home practice and follow-up",
-];
-
-const outcomes = [
-  "Assessment overview",
-  "Therapy tracks",
-  "Caregiver guidance",
-  "Progress snapshots",
+const featureCards = [
+  {
+    title: "Visual",
+    description: "High-contrast patterns and calming motion for visual stimulation.",
+    icon: "visual",
+    href: "/visual",
+  },
+  {
+    title: "Auditory",
+    description: "Soft sounds, white noise, and gentle audio for quiet focus.",
+    icon: "auditory",
+    href: "#modules",
+  },
+  {
+    title: "Toys",
+    description: "Simple touch play with bubbles, ripples, and floating shapes.",
+    icon: "toys",
+    href: "#modules",
+  },
 ];
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Congnivisio | Brain and Vision Therapy</title>
+        <title>Little Bloom | Visual, Auditory, Toys</title>
         <meta
           name="description"
-          content="Congnivisio is a progressive web app for brain and vision therapy programs."
+          content="Little Bloom is a calm, mobile-first baby stimulation app for visual, auditory, and toy-based play."
         />
         <meta name="theme-color" content="#0f766e" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,61 +43,43 @@ export default function Home() {
       </Head>
 
       <main className={styles.page}>
-        <section className={styles.hero}>
-          <p className={styles.kicker}>Brain and Vision Therapy</p>
-          <h1>Outline a calmer path for visual focus, cognition, and recovery.</h1>
-          <p className={styles.intro}>
-            Congnivisio is a mobile-ready therapy experience for clinics, parents,
-            and patients who need structured support across visual and cognitive
-            rehabilitation.
-          </p>
-
-          <div className={styles.actions}>
-            <a href="#therapy-outline" className={styles.primary}>
-              View Therapy Outline
-            </a>
-            <a href="#programs" className={styles.secondary}>
-              Explore Programs
-            </a>
+        <div className={styles.skyDecor} aria-hidden="true">
+          <span className={`${styles.floatItem} ${styles.starOne}`}>★</span>
+          <span className={`${styles.floatItem} ${styles.starTwo}`}>✦</span>
+          <span className={`${styles.floatItem} ${styles.moon}`}>☾</span>
+          <span className={`${styles.floatItem} ${styles.cloud}`}>☁</span>
+          <span className={`${styles.floatItem} ${styles.duck}`}>◡</span>
+          <span className={`${styles.floatItem} ${styles.spark}`}>✧</span>
+        </div>
+        <section className={styles.home}>
+          <div className={styles.heroBadge} aria-hidden="true">
+            <div className={styles.heroGlow} />
+            <div className={styles.moonBuddy}>
+              <span className={styles.moonEarLeft} />
+              <span className={styles.moonEarRight} />
+              <span className={styles.moonFace}>
+                <span className={styles.moonEyeLeft} />
+                <span className={styles.moonEyeRight} />
+                <span className={styles.moonSmile} />
+                <span className={styles.moonBlushLeft} />
+                <span className={styles.moonBlushRight} />
+              </span>
+              <span className={styles.moonStar}>★</span>
+            </div>
           </div>
-        </section>
-
-        <section id="therapy-outline" className={styles.panel}>
-          <div>
-            <p className={styles.sectionLabel}>Main Page Outline</p>
-            <h2>Designed for everyday therapy sessions on iPhone, Android, and desktop.</h2>
-          </div>
-          <div className={styles.grid}>
-            {focusAreas.map((item) => (
-              <article key={item} className={styles.card}>
-                <h3>{item}</h3>
-                <p>
-                  Clear routines, visual guidance, and therapist-backed steps that
-                  can scale from clinic visits to home practice.
-                </p>
-              </article>
+          <h1 className={styles.title}>Little Bloom</h1>
+          <div className={styles.cardGrid}>
+            {featureCards.map((card) => (
+              <a key={card.title} href={card.href} className={styles.actionCard}>
+                <span className={styles.iconWrap}>
+                  {card.icon === "visual" && <Eye weight="fill" aria-hidden="true" />}
+                  {card.icon === "auditory" && <Ear weight="fill" aria-hidden="true" />}
+                  {card.icon === "toys" && <Horse weight="fill" aria-hidden="true" />}
+                </span>
+                <strong className={styles.cardTitle}>{card.title}</strong>
+              </a>
             ))}
           </div>
-        </section>
-
-        <section id="programs" className={styles.split}>
-          <article className={styles.feature}>
-            <p className={styles.sectionLabel}>Program Flow</p>
-            <h2>Assess. Train. Measure. Repeat.</h2>
-            <p>
-              Start with a baseline session, move into guided drills, and review
-              progress with simple outcome checkpoints for each therapy block.
-            </p>
-          </article>
-
-          <aside className={styles.outcomeBox}>
-            <p className={styles.sectionLabel}>Core Modules</p>
-            <ul>
-              {outcomes.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </aside>
         </section>
       </main>
     </>
