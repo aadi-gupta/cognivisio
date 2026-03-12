@@ -1,14 +1,15 @@
 .page {
   position: relative;
-  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100vw;
   overflow: hidden;
-  background: #000;
+  background: var(--app-player-bg);
 }
 
 .canvas {
   display: block;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
 }
 
 .backHint {
@@ -19,7 +20,7 @@
   width: 5.8rem;
   height: 5.8rem;
   border-radius: 2rem;
-  background: rgba(45, 158, 185, 0.92);
+  background: var(--app-player-control-blue);
   box-shadow: 0 12px 0 rgba(0, 0, 0, 0.08);
   display: inline-flex;
   align-items: center;
@@ -39,7 +40,7 @@
   height: 5.8rem;
   border: 0;
   border-radius: 2rem;
-  background: rgba(243, 85, 85, 0.92);
+  background: var(--app-player-control-red);
   box-shadow: 0 12px 0 rgba(0, 0, 0, 0.08);
   display: inline-flex;
   align-items: center;
@@ -59,13 +60,13 @@
 .backArrowIcon {
   width: 3.15rem;
   height: 3.15rem;
-  color: #f8fdff;
+  color: var(--app-control-fg);
 }
 
 .soundIcon {
   width: 2.7rem;
   height: 2.7rem;
-  color: #fff8f5;
+  color: var(--app-control-fg);
 }
 
 .soundIconSvg {

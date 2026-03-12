@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import styles from "../styles/Visual.module.css";
 import { visualExercises } from "../lib/visualExercises";
@@ -196,9 +196,28 @@ function PatternIcon({ type }) {
 }
 
 export default function VisualPage() {
-  const pageSize = 18;
+  const [isPortrait, setIsPortrait] = useState(false);
   const [page, setPage] = useState(0);
+  const pageSize = isPortrait ? 12 : 18;
   const totalPages = Math.ceil(visualExercises.length / pageSize);
+
+  useEffect(() => {
+    const syncOrientation = () => {
+      setIsPortrait(window.innerHeight >= window.innerWidth);
+    };
+
+    syncOrientation();
+    window.addEventListener("resize", syncOrientation);
+
+    return () => {
+      window.removeEventListener("resize", syncOrientation);
+    };
+  }, []);
+
+  useEffect(() => {
+    setPage((value) => Math.min(value, Math.max(0, totalPages - 1)));
+  }, [totalPages]);
+
   const visibleExercises = useMemo(() => {
     const start = page * pageSize;
     const items = visualExercises.slice(start, start + pageSize);
@@ -210,7 +229,7 @@ export default function VisualPage() {
         placeholder: true,
       })),
     ];
-  }, [page]);
+  }, [page, pageSize]);
 
   return (
     <>

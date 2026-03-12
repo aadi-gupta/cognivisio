@@ -1,6 +1,7 @@
 .page {
   position: relative;
   height: 100dvh;
+  width: 100vw;
   overflow: hidden;
   padding: clamp(0.65rem, 2vw, 1rem);
   display: grid;
@@ -8,11 +9,11 @@
   align-items: center;
   gap: clamp(0.6rem, 1.8vw, 1.1rem);
   background:
-    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.28) 0 0.35rem, transparent 0.4rem),
-    radial-gradient(circle at 86% 16%, rgba(255, 168, 168, 0.22) 0 0.3rem, transparent 0.35rem),
-    radial-gradient(circle at 22% 82%, rgba(255, 255, 255, 0.18) 0 0.4rem, transparent 0.45rem),
-    radial-gradient(circle at 74% 78%, rgba(255, 145, 145, 0.18) 0 0.4rem, transparent 0.45rem),
-    linear-gradient(180deg, #8fd5ff 0%, #5fa9f6 55%, #4f87db 100%);
+    radial-gradient(circle at 12% 18%, var(--sky-doodle) 0 0.35rem, transparent 0.4rem),
+    radial-gradient(circle at 86% 16%, var(--sky-doodle-soft) 0 0.3rem, transparent 0.35rem),
+    radial-gradient(circle at 22% 82%, var(--sky-doodle-alt) 0 0.4rem, transparent 0.45rem),
+    radial-gradient(circle at 74% 78%, var(--sky-doodle-warm) 0 0.4rem, transparent 0.45rem),
+    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
 }
 
 .skyDecor {
@@ -58,8 +59,8 @@
   width: clamp(4.8rem, 10vw, 7.8rem);
   height: clamp(4.8rem, 10vw, 7.8rem);
   border-radius: 2.2rem;
-  background: linear-gradient(180deg, #ff7b7b 0%, #f35555 100%);
-  box-shadow: 0 14px 0 rgba(155, 45, 45, 0.2);
+  background: linear-gradient(180deg, var(--app-accent-top) 0%, var(--app-accent-bottom) 100%);
+  box-shadow: 0 14px 0 var(--app-accent-shadow);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -68,7 +69,7 @@
 .backArrowIcon {
   width: 3.6rem;
   height: 3.6rem;
-  color: #fffaf8;
+  color: var(--app-control-fg);
 }
 
 .boardWrap {
@@ -80,12 +81,38 @@
   min-width: 0;
 }
 
+.colorsPage {
+  height: 100dvh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.75rem;
+  gap: 0.75rem;
+}
+
+.colorsBoardWrap {
+  flex: 1 1 auto;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 0;
+}
+
 .board {
   width: min(100%, 980px, calc((100dvh - 2rem) * 1.42));
   padding: clamp(0.6rem, 1.6vw, 1.35rem);
   border-radius: 2.4rem;
-  background: linear-gradient(180deg, #266fdb 0%, #1d58c5 100%);
-  box-shadow: 0 18px 0 rgba(13, 58, 135, 0.24);
+  background: linear-gradient(180deg, var(--app-board-top) 0%, var(--app-board-bottom) 100%);
+  box-shadow: 0 18px 0 var(--app-board-shadow);
+}
+
+.colorsBoard {
+  width: min(100%, 30rem);
+  min-height: 0;
+  padding: 0.9rem;
 }
 
 .boardHeader {
@@ -144,6 +171,14 @@
   gap: 0.6rem;
 }
 
+.colorsGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  padding: 2px;
+  justify-items: center;
+  animation: colorsFloat 5.8s ease-in-out infinite;
+}
+
 .tile {
   position: relative;
   aspect-ratio: 1 / 1;
@@ -154,6 +189,22 @@
   justify-content: center;
   padding: 0.45rem;
   transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.colorCard {
+  width: 100%;
+  border-radius: 20px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  will-change: transform;
+}
+
+.colorCard:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.colorCard:active {
+  animation: colorCardBounce 240ms ease;
+  transform: scale(0.96);
 }
 
 .tileMono {
@@ -221,10 +272,22 @@
   justify-content: center;
 }
 
+.colorTileContent {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .tilePlaceholder {
   aspect-ratio: 1 / 1;
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.08);
+}
+
+.colorsTilePlaceholder {
+  width: 100%;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .tileIcon svg {
@@ -235,6 +298,28 @@
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+@keyframes colorsFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes colorCardBounce {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(0.94);
+  }
+  100% {
+    transform: scale(0.98);
+  }
 }
 
 @media (max-width: 900px) {
@@ -256,24 +341,35 @@
     height: 2.6rem;
   }
 
-  .board {
-    width: min(100%, calc((100dvh - 7.2rem) * 0.66));
+  .colorsPage {
+    padding: 0.7rem;
+    gap: 0.65rem;
+  }
+
+  .colorsBoard {
+    width: min(100%, 28rem);
+  }
+}
+
+@media (orientation: portrait) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 720px) {
-  .board {
-    width: min(100%, calc((100dvh - 6.8rem) * 0.66));
+  .colorsBoard {
+    width: min(100%, 25rem);
   }
 }
 
 @media (max-width: 520px) {
   .page {
-    padding: 0.75rem;
+    padding: 0.55rem;
   }
 
   .board {
-    width: min(100%, calc((100dvh - 6.2rem) * 0.64));
+    width: min(100%, 23.75rem);
     padding: 0.65rem;
     border-radius: 1.6rem;
   }
@@ -294,6 +390,32 @@
     width: 2.2rem;
     height: 2.2rem;
     font-size: 1.55rem;
+  }
+
+  .colorsPage {
+    padding: 0.55rem;
+    gap: 0.55rem;
+  }
+
+  .colorsBoardWrap {
+    width: 100%;
+  }
+
+  .colorsBoard {
+    width: min(100%, 23.75rem);
+    padding: 0.8rem;
+    border-radius: 1.5rem;
+  }
+
+  .colorsGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    padding: 0;
+  }
+
+  .colorCard,
+  .colorsTilePlaceholder {
+    border-radius: 20px;
   }
 }
 
@@ -317,10 +439,34 @@
   }
 
   .board {
-    width: min(100%, calc((100dvh - 1.4rem) * 1.46));
+    width: min(100%, 52rem);
     padding: 0.6rem;
     border-radius: 1.8rem;
     box-shadow: 0 12px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .colorsPage {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-items: stretch;
+    gap: 0.8rem;
+    padding: 0.55rem 0.8rem;
+  }
+
+  .colorsBoardWrap {
+    align-items: center;
+  }
+
+  .colorsBoard {
+    width: min(100%, 52rem);
+    padding: 0.7rem;
+    border-radius: 1.7rem;
+  }
+
+  .colorsGrid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.5rem;
   }
 
   .grid {

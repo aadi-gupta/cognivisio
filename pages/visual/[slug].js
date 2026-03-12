@@ -100,7 +100,7 @@ export default function VisualPlayerPage() {
     setShowBack(true);
 
     if (audioRef.current && soundOn) {
-      audioRef.current.resume();
+      void audioRef.current.resume();
     }
 
     if (hideTimerRef.current) {

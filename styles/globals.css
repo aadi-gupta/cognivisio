@@ -12,29 +12,47 @@
   --brand-deep: #144c52;
   --accent: #f4b860;
   --shadow: 0 24px 60px rgba(17, 49, 58, 0.12);
-  --sky-top: #9ddaf0;
-  --sky-bottom: #a6e1f3;
-  --sky-doodle: rgba(255, 255, 255, 0.35);
-  --sky-doodle-soft: rgba(255, 255, 255, 0.28);
+  --sky-top: #8fd5ff;
+  --sky-mid: #5fa9f6;
+  --sky-bottom: #4f87db;
+  --sky-doodle: rgba(255, 255, 255, 0.28);
+  --sky-doodle-soft: rgba(255, 168, 168, 0.22);
+  --sky-doodle-alt: rgba(255, 255, 255, 0.18);
+  --sky-doodle-warm: rgba(255, 145, 145, 0.18);
   --hero-glow-strong: rgba(255, 245, 187, 0.95);
   --hero-glow-soft: rgba(255, 245, 187, 0.2);
-  --moon-body-top: #fff6d2;
-  --moon-body-bottom: #fde28f;
-  --moon-cutout: #9ddaf0;
+  --moon-body-top: #fff2d6;
+  --moon-body-bottom: #ffd48c;
+  --moon-cutout: #8fd5ff;
   --moon-ear-top: #fff2c4;
   --moon-ear-bottom: #f6d979;
   --moon-face-detail: #8e6a55;
   --moon-cheek: rgba(247, 154, 154, 0.78);
   --moon-smile: #ef8d8b;
   --title-fill: #ffffff;
-  --title-outline: #2f9db6;
-  --tile-visual-top: #f08a40;
-  --tile-visual-bottom: #ea7b35;
-  --tile-auditory-top: #f4b23a;
-  --tile-auditory-bottom: #eba52d;
-  --tile-toys-top: #f37645;
-  --tile-toys-bottom: #ec6a3c;
+  --title-outline: #2c7fd4;
+  --tile-visual-top: #ff8f8f;
+  --tile-visual-bottom: #f26464;
+  --tile-auditory-top: #ffb2c8;
+  --tile-auditory-bottom: #f77da0;
+  --tile-toys-top: #ffb2c8;
+  --tile-toys-bottom: #f77da0;
   --tile-ink: #fffdf7;
+  --app-board-top: #266fdb;
+  --app-board-bottom: #1d58c5;
+  --app-board-shadow: rgba(13, 58, 135, 0.24);
+  --app-accent-top: #ff7b7b;
+  --app-accent-bottom: #f35555;
+  --app-accent-shadow: rgba(155, 45, 45, 0.2);
+  --app-control-fg: #fffaf8;
+  --app-player-control-blue: rgba(48, 120, 223, 0.92);
+  --app-player-control-red: rgba(243, 85, 85, 0.92);
+  --app-player-bg:
+    radial-gradient(circle at 12% 18%, var(--sky-doodle) 0 0.35rem, transparent 0.4rem),
+    radial-gradient(circle at 86% 16%, var(--sky-doodle-soft) 0 0.3rem, transparent 0.35rem),
+    radial-gradient(circle at 22% 82%, var(--sky-doodle-alt) 0 0.4rem, transparent 0.45rem),
+    radial-gradient(circle at 74% 78%, var(--sky-doodle-warm) 0 0.4rem, transparent 0.45rem),
+    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
 }
 
 * {
@@ -57,9 +75,7 @@ body {
   min-height: 100dvh;
   font-family: var(--font-body);
   overflow: hidden;
-  background:
-    radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 30%),
-    linear-gradient(180deg, #fbfcf8 0%, var(--bg) 100%);
+  background: var(--app-player-bg);
   color: var(--ink);
 }
 

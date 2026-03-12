@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Ear, Eye, Horse } from "@phosphor-icons/react";
+import { Eye, Palette } from "@phosphor-icons/react";
 import styles from "../styles/Home.module.css";
 
 const featureCards = [
@@ -10,16 +10,10 @@ const featureCards = [
     href: "/visual",
   },
   {
-    title: "Auditory",
-    description: "Soft sounds, white noise, and gentle audio for quiet focus.",
-    icon: "auditory",
-    href: "#modules",
-  },
-  {
-    title: "Toys",
-    description: "Simple touch play with bubbles, ripples, and floating shapes.",
-    icon: "toys",
-    href: "#modules",
+    title: "Colors",
+    description: "Bright, soothing full-screen colors for simple color therapy play.",
+    icon: "colors",
+    href: "/colors",
   },
 ];
 
@@ -27,10 +21,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Little Bloom | Visual, Auditory, Toys</title>
+        <title>Little Bloom | Visual and Colors</title>
         <meta
           name="description"
-          content="Little Bloom is a calm, mobile-first baby stimulation app for visual, auditory, and toy-based play."
+          content="Little Bloom is a calm, mobile-first baby stimulation app for visual patterns and color-based play."
         />
         <meta name="theme-color" content="#0f766e" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -73,8 +67,7 @@ export default function Home() {
               <a key={card.title} href={card.href} className={styles.actionCard}>
                 <span className={styles.iconWrap}>
                   {card.icon === "visual" && <Eye weight="fill" aria-hidden="true" />}
-                  {card.icon === "auditory" && <Ear weight="fill" aria-hidden="true" />}
-                  {card.icon === "toys" && <Horse weight="fill" aria-hidden="true" />}
+                  {card.icon === "colors" && <Palette weight="fill" aria-hidden="true" />}
                 </span>
                 <strong className={styles.cardTitle}>{card.title}</strong>
               </a>

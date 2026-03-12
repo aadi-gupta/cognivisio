@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
   height: 100dvh;
-  width: min(100%, 100vw);
+  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,9 +10,9 @@
   background:
     radial-gradient(circle at 12% 18%, var(--sky-doodle) 0 0.35rem, transparent 0.4rem),
     radial-gradient(circle at 86% 16%, var(--sky-doodle-soft) 0 0.3rem, transparent 0.35rem),
-    radial-gradient(circle at 22% 82%, var(--sky-doodle-soft) 0 0.4rem, transparent 0.45rem),
-    radial-gradient(circle at 74% 78%, var(--sky-doodle-soft) 0 0.4rem, transparent 0.45rem),
-    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 100%);
+    radial-gradient(circle at 22% 82%, var(--sky-doodle-alt) 0 0.4rem, transparent 0.45rem),
+    radial-gradient(circle at 74% 78%, var(--sky-doodle-warm) 0 0.4rem, transparent 0.45rem),
+    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
 }
 
 .skyDecor {
@@ -104,7 +104,8 @@
 .home {
   position: relative;
   z-index: 1;
-  width: min(100%, 480px);
+  width: min(100%, 44rem);
+  max-width: 100%;
   max-height: calc(100dvh - 1.5rem);
 }
 
@@ -254,7 +255,7 @@
 
 .cardGrid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -288,10 +289,6 @@
 
 .actionCard:nth-child(2) {
   background: linear-gradient(180deg, var(--tile-auditory-top) 0%, var(--tile-auditory-bottom) 100%);
-}
-
-.actionCard:nth-child(3) {
-  background: linear-gradient(180deg, var(--tile-toys-top) 0%, var(--tile-toys-bottom) 100%);
 }
 
 .actionCard:hover {
@@ -462,6 +459,14 @@
 }
 
 @media (max-width: 840px) {
+  .home {
+    width: min(100%, 35rem);
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+
   .actionCard {
     min-height: 112px;
   }
@@ -469,7 +474,12 @@
 
 @media (max-width: 520px) {
   .page {
-    padding: 1rem;
+    padding: 0.85rem;
+  }
+
+  .home {
+    width: 100%;
+    max-height: calc(100dvh - 1.1rem);
   }
 
   .moonBuddy {
@@ -566,7 +576,7 @@
   }
 
   .home {
-    width: min(100%, 960px);
+    width: min(100%, 44rem);
   }
 
   .heroBadge {
@@ -663,7 +673,7 @@
   }
 
   .cardGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.75rem;
   }
 
