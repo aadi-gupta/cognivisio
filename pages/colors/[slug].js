@@ -62,22 +62,6 @@ export default function ColorPlayerPage() {
     };
   }, []);
 
-  const startSession = async () => {
-    if (audioRef.current && soundOn) {
-      await audioRef.current.resume();
-    }
-
-    if ("wakeLock" in navigator && navigator.wakeLock?.request) {
-      try {
-        wakeLockRef.current = await navigator.wakeLock.request("screen");
-      } catch {
-        wakeLockRef.current = null;
-      }
-    }
-
-    setSessionStarted(true);
-  };
-
   useEffect(() => {
     return () => {
       if (hideTimerRef.current) {
@@ -114,6 +98,21 @@ export default function ColorPlayerPage() {
 
   const revealControls = () => {
     setShowBack(true);
+
+    if (!sessionStarted) {
+      setSessionStarted(true);
+
+      if ("wakeLock" in navigator && navigator.wakeLock?.request) {
+        navigator.wakeLock
+          .request("screen")
+          .then((lock) => {
+            wakeLockRef.current = lock;
+          })
+          .catch(() => {
+            wakeLockRef.current = null;
+          });
+      }
+    }
 
     if (audioRef.current && soundOn) {
       void audioRef.current.resume();

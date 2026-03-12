@@ -120,22 +120,6 @@ export default function VisualPlayerPage() {
     };
   }, []);
 
-  const startSession = async () => {
-    if (audioRef.current && soundOn) {
-      await audioRef.current.resume();
-    }
-
-    if ("wakeLock" in navigator && navigator.wakeLock?.request) {
-      try {
-        wakeLockRef.current = await navigator.wakeLock.request("screen");
-      } catch {
-        wakeLockRef.current = null;
-      }
-    }
-
-    setSessionStarted(true);
-  };
-
   useEffect(() => {
     return () => {
       if (hideTimerRef.current) {
@@ -172,6 +156,21 @@ export default function VisualPlayerPage() {
 
   const revealBackButton = () => {
     setShowBack(true);
+
+    if (!sessionStarted) {
+      setSessionStarted(true);
+
+      if ("wakeLock" in navigator && navigator.wakeLock?.request) {
+        navigator.wakeLock
+          .request("screen")
+          .then((lock) => {
+            wakeLockRef.current = lock;
+          })
+          .catch(() => {
+            wakeLockRef.current = null;
+          });
+      }
+    }
 
     if (audioRef.current && soundOn) {
       void audioRef.current.resume();
@@ -213,14 +212,6 @@ export default function VisualPlayerPage() {
       </Head>
 
       <main className={styles.page} onPointerDown={revealBackButton}>
-        {!sessionStarted ? (
-          <button type="button" className={styles.startOverlay} onClick={startSession}>
-            <span className={styles.startCard}>
-              <strong className={styles.startTitle}>Start Therapy</strong>
-              <span className={styles.startCopy}>Tap once to begin sound and keep the screen awake.</span>
-            </span>
-          </button>
-        ) : null}
         <Link
           href="/visual"
           className={`${styles.backHint} ${showBack ? styles.backVisible : ""}`}
