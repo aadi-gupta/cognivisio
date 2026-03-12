@@ -3,41 +3,25 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { visualExercises } from "../../lib/visualExercises";
-import { CanvasEngine } from "../../lib/visual/CanvasEngine";
-import { SpiralPattern } from "../../lib/visual/patterns/SpiralPattern";
-import { CirclePattern } from "../../lib/visual/patterns/CirclePattern";
-import { TrianglePattern } from "../../lib/visual/patterns/TrianglePattern";
-import { RingsPattern } from "../../lib/visual/patterns/RingsPattern";
-import { SunburstPattern } from "../../lib/visual/patterns/SunburstPattern";
-import { DiamondPattern } from "../../lib/visual/patterns/DiamondPattern";
-import { StarPattern } from "../../lib/visual/patterns/StarPattern";
-import { DiamondGridPattern } from "../../lib/visual/patterns/DiamondGridPattern";
-import { PawPattern } from "../../lib/visual/patterns/PawPattern";
-import { CrossPattern } from "../../lib/visual/patterns/CrossPattern";
-import { CheckerPattern } from "../../lib/visual/patterns/CheckerPattern";
-import { DotsPattern } from "../../lib/visual/patterns/DotsPattern";
-import { StripesPattern } from "../../lib/visual/patterns/StripesPattern";
-import { SnowflakePattern } from "../../lib/visual/patterns/SnowflakePattern";
-import { TrianglesPattern } from "../../lib/visual/patterns/TrianglesPattern";
 import { createAmbientAudio } from "../../lib/visual/createAmbientAudio";
 import styles from "../../styles/VisualPlayer.module.css";
 
-const patternMap = {
-  spiral: SpiralPattern,
-  checker: CheckerPattern,
-  circle: CirclePattern,
-  triangle: TrianglePattern,
-  rings: RingsPattern,
-  star: StarPattern,
-  sunburst: SunburstPattern,
-  diamond: DiamondPattern,
-  dots: DotsPattern,
-  triangles: TrianglesPattern,
-  diamondGrid: DiamondGridPattern,
-  stripes: StripesPattern,
-  snowflake: SnowflakePattern,
-  paw: PawPattern,
-  cross: CrossPattern,
+const patternMetadata = {
+  spiral: { importer: () => import("../../lib/visual/patterns/SpiralPattern"), exportName: "SpiralPattern" },
+  checker: { importer: () => import("../../lib/visual/patterns/CheckerPattern"), exportName: "CheckerPattern" },
+  circle: { importer: () => import("../../lib/visual/patterns/CirclePattern"), exportName: "CirclePattern" },
+  triangle: { importer: () => import("../../lib/visual/patterns/TrianglesPattern"), exportName: "TrianglesPattern" },
+  rings: { importer: () => import("../../lib/visual/patterns/RingsPattern"), exportName: "RingsPattern" },
+  star: { importer: () => import("../../lib/visual/patterns/StarPattern"), exportName: "StarPattern" },
+  sunburst: { importer: () => import("../../lib/visual/patterns/SunburstPattern"), exportName: "SunburstPattern" },
+  diamond: { importer: () => import("../../lib/visual/patterns/DiamondPattern"), exportName: "DiamondPattern" },
+  dots: { importer: () => import("../../lib/visual/patterns/DotsPattern"), exportName: "DotsPattern" },
+  triangles: { importer: () => import("../../lib/visual/patterns/TrianglesPattern"), exportName: "TrianglesPattern" },
+  diamondGrid: { importer: () => import("../../lib/visual/patterns/DiamondGridPattern"), exportName: "DiamondGridPattern" },
+  stripes: { importer: () => import("../../lib/visual/patterns/StripesPattern"), exportName: "StripesPattern" },
+  snowflake: { importer: () => import("../../lib/visual/patterns/SnowflakePattern"), exportName: "SnowflakePattern" },
+  paw: { importer: () => import("../../lib/visual/patterns/PawPattern"), exportName: "PawPattern" },
+  cross: { importer: () => import("../../lib/visual/patterns/CrossPattern"), exportName: "CrossPattern" },
 };
 
 function LeftIcon() {
@@ -86,21 +70,56 @@ export default function VisualPlayerPage() {
       return undefined;
     }
 
-    const phaseFactories = exercise.phases.map((phase) => {
-      const PatternClass = patternMap[phase.type];
-      return () => new PatternClass(phase);
-    });
+    let cancelled = false;
+    let engine = null;
 
-    const engine = new CanvasEngine(canvasRef.current, phaseFactories, {
-      phaseDuration: 12,
-      phaseTransitionDuration: 3,
-      invertDuration: 10,
-      paletteMode: exercise.paletteMode,
-    });
-    engine.start();
+    const initEngine = async () => {
+      const uniqueTypes = Array.from(new Set(exercise.phases.map((phase) => phase.type)));
+      const filteredTypes = uniqueTypes.filter((type) => patternMetadata[type]);
+      const importPromises = filteredTypes.map((type) => patternMetadata[type].importer());
+
+      const [
+        { CanvasEngine },
+        ...patternModules
+      ] = await Promise.all([import("../../lib/visual/CanvasEngine"), ...importPromises]);
+
+      if (cancelled) {
+        return;
+      }
+
+      const loadedPatterns = {};
+      filteredTypes.forEach((type, index) => {
+        const metadata = patternMetadata[type];
+        const module = patternModules[index];
+        if (metadata && module) {
+          loadedPatterns[type] = module[metadata.exportName];
+        }
+      });
+
+      const phaseFactories = exercise.phases.map((phase) => {
+        const PatternClass = loadedPatterns[phase.type];
+        if (!PatternClass) {
+          throw new Error(`Missing pattern class for ${phase.type}`);
+        }
+        return () => new PatternClass(phase);
+      });
+
+      engine = new CanvasEngine(canvasRef.current, phaseFactories, {
+        phaseDuration: 12,
+        phaseTransitionDuration: 3,
+        invertDuration: 10,
+        paletteMode: exercise.paletteMode,
+      });
+      engine.start();
+    };
+
+    initEngine();
 
     return () => {
-      engine.stop();
+      cancelled = true;
+      if (engine) {
+        engine.stop();
+      }
     };
   }, [exercise]);
 
