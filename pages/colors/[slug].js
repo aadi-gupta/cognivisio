@@ -35,8 +35,10 @@ function SpeakerOffIcon() {
 export default function ColorPlayerPage() {
   const hideTimerRef = useRef(null);
   const audioRef = useRef(null);
+  const wakeLockRef = useRef(null);
   const [showBack, setShowBack] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
+  const [sessionStarted, setSessionStarted] = useState(false);
   const router = useRouter();
 
   const color = useMemo(
@@ -48,12 +50,33 @@ export default function ColorPlayerPage() {
     audioRef.current = createAmbientAudio();
 
     return () => {
+      if (wakeLockRef.current) {
+        wakeLockRef.current.release().catch(() => {});
+        wakeLockRef.current = null;
+      }
+
       if (audioRef.current) {
         audioRef.current.stop();
         audioRef.current = null;
       }
     };
   }, []);
+
+  const startSession = async () => {
+    if (audioRef.current && soundOn) {
+      await audioRef.current.resume();
+    }
+
+    if ("wakeLock" in navigator && navigator.wakeLock?.request) {
+      try {
+        wakeLockRef.current = await navigator.wakeLock.request("screen");
+      } catch {
+        wakeLockRef.current = null;
+      }
+    }
+
+    setSessionStarted(true);
+  };
 
   useEffect(() => {
     return () => {
@@ -62,6 +85,32 @@ export default function ColorPlayerPage() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (!sessionStarted) {
+      return undefined;
+    }
+
+    const handleVisibility = async () => {
+      if (
+        document.visibilityState === "visible" &&
+        "wakeLock" in navigator &&
+        navigator.wakeLock?.request
+      ) {
+        try {
+          wakeLockRef.current = await navigator.wakeLock.request("screen");
+        } catch {
+          wakeLockRef.current = null;
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [sessionStarted]);
 
   const revealControls = () => {
     setShowBack(true);
@@ -110,6 +159,14 @@ export default function ColorPlayerPage() {
         onPointerDown={revealControls}
         style={{ background: color.hex }}
       >
+        {!sessionStarted ? (
+          <button type="button" className={styles.startOverlay} onClick={startSession}>
+            <span className={styles.startCard}>
+              <strong className={styles.startTitle}>Start Therapy</strong>
+              <span className={styles.startCopy}>Tap once to begin sound and keep the screen awake.</span>
+            </span>
+          </button>
+        ) : null}
         <Link
           href="/colors"
           className={`${styles.backHint} ${showBack ? styles.backVisible : ""}`}
