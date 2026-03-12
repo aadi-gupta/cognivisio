@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import styles from "../styles/Visual.module.css";
 import { visualExercises } from "../lib/visualExercises";
 
@@ -230,7 +231,7 @@ export default function VisualPage() {
         </div>
 
         <Link href="/" className={styles.backButton} aria-label="Back to home">
-          <span className={styles.backArrow}>‹</span>
+          <CaretLeft weight="bold" className={styles.backArrowIcon} aria-hidden="true" />
         </Link>
 
         <section className={styles.boardWrap}>
@@ -243,7 +244,7 @@ export default function VisualPage() {
                 disabled={page === 0}
                 aria-label="Previous visual patterns"
               >
-                ‹
+                <CaretLeft weight="bold" className={styles.pagerIcon} aria-hidden="true" />
               </button>
               <div className={styles.pageDots} aria-hidden="true">
                 {Array.from({ length: totalPages }, (_, index) => (
@@ -260,7 +261,7 @@ export default function VisualPage() {
                 disabled={page === totalPages - 1}
                 aria-label="Next visual patterns"
               >
-                ›
+                <CaretRight weight="bold" className={styles.pagerIcon} aria-hidden="true" />
               </button>
             </div>
             <div className={styles.grid}>

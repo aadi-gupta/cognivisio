@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import { CaretLeft, SpeakerHigh, SpeakerSlash } from "@phosphor-icons/react";
 import { visualExercises } from "../../lib/visualExercises";
 import { CanvasEngine } from "../../lib/visual/CanvasEngine";
 import { SpiralPattern } from "../../lib/visual/patterns/SpiralPattern";
@@ -19,6 +20,7 @@ import { DotsPattern } from "../../lib/visual/patterns/DotsPattern";
 import { StripesPattern } from "../../lib/visual/patterns/StripesPattern";
 import { SnowflakePattern } from "../../lib/visual/patterns/SnowflakePattern";
 import { TrianglesPattern } from "../../lib/visual/patterns/TrianglesPattern";
+import { createAmbientAudio } from "../../lib/visual/createAmbientAudio";
 import styles from "../../styles/VisualPlayer.module.css";
 
 const patternMap = {
@@ -42,7 +44,9 @@ const patternMap = {
 export default function VisualPlayerPage() {
   const canvasRef = useRef(null);
   const hideTimerRef = useRef(null);
+  const audioRef = useRef(null);
   const [showBack, setShowBack] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
   const router = useRouter();
 
   const exercise = useMemo(
@@ -74,6 +78,17 @@ export default function VisualPlayerPage() {
   }, [exercise]);
 
   useEffect(() => {
+    audioRef.current = createAmbientAudio();
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.stop();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     return () => {
       if (hideTimerRef.current) {
         clearTimeout(hideTimerRef.current);
@@ -84,6 +99,10 @@ export default function VisualPlayerPage() {
   const revealBackButton = () => {
     setShowBack(true);
 
+    if (audioRef.current && soundOn) {
+      audioRef.current.resume();
+    }
+
     if (hideTimerRef.current) {
       clearTimeout(hideTimerRef.current);
     }
@@ -91,6 +110,18 @@ export default function VisualPlayerPage() {
     hideTimerRef.current = setTimeout(() => {
       setShowBack(false);
     }, 1800);
+  };
+
+  const toggleSound = async (event) => {
+    event.stopPropagation();
+
+    if (!audioRef.current) {
+      return;
+    }
+
+    await audioRef.current.resume();
+    const enabled = audioRef.current.toggle();
+    setSoundOn(enabled);
   };
 
   if (!exercise) {
@@ -113,8 +144,22 @@ export default function VisualPlayerPage() {
           className={`${styles.backHint} ${showBack ? styles.backVisible : ""}`}
           aria-label="Back to visual menu"
         >
-          <span className={styles.backArrow}>‹</span>
+          <CaretLeft weight="bold" className={styles.backArrowIcon} aria-hidden="true" />
         </Link>
+        <button
+          type="button"
+          className={`${styles.soundHint} ${showBack ? styles.backVisible : ""}`}
+          aria-label={soundOn ? "Mute soothing sound" : "Play soothing sound"}
+          onClick={toggleSound}
+        >
+          <span className={styles.soundIcon}>
+            {soundOn ? (
+              <SpeakerHigh weight="fill" className={styles.soundIconSvg} aria-hidden="true" />
+            ) : (
+              <SpeakerSlash weight="fill" className={styles.soundIconSvg} aria-hidden="true" />
+            )}
+          </span>
+        </button>
         <canvas ref={canvasRef} className={styles.canvas} />
       </main>
     </>

@@ -65,11 +65,10 @@
   justify-content: center;
 }
 
-.backArrow {
-  font-size: 5.4rem;
-  line-height: 1;
+.backArrowIcon {
+  width: 3.6rem;
+  height: 3.6rem;
   color: #fffaf8;
-  transform: translateX(-0.18rem);
 }
 
 .boardWrap {
@@ -110,6 +109,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.pagerIcon {
+  width: 1.35rem;
+  height: 1.35rem;
 }
 
 .pagerButton:disabled {
@@ -247,8 +251,9 @@
     justify-self: start;
   }
 
-  .backArrow {
-    font-size: 3.7rem;
+  .backArrowIcon {
+    width: 2.6rem;
+    height: 2.6rem;
   }
 
   .board {
@@ -306,8 +311,9 @@
     justify-self: start;
   }
 
-  .backArrow {
-    font-size: 3.4rem;
+  .backArrowIcon {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .board {
