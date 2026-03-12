@@ -1,0 +1,149 @@
+.page {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.hero {
+  padding: 5rem 0 4rem;
+}
+
+.kicker,
+.sectionLabel {
+  margin: 0 0 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  color: var(--brand);
+}
+
+.hero h1,
+.panel h2,
+.feature h2 {
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.hero h1 {
+  max-width: 12ch;
+  font-size: clamp(3rem, 8vw, 6.4rem);
+}
+
+.intro {
+  max-width: 44rem;
+  margin: 1.5rem 0 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.2rem;
+  padding: 0 1.4rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.primary {
+  background: var(--brand);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+
+.secondary {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.primary:hover,
+.secondary:hover {
+  transform: translateY(-2px);
+}
+
+.panel,
+.split {
+  margin-top: 2rem;
+  padding: 2rem;
+  border: 1px solid var(--line);
+  border-radius: 2rem;
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.card,
+.outcomeBox {
+  padding: 1.4rem;
+  border-radius: 1.4rem;
+  background: var(--surface-strong);
+  border: 1px solid var(--line);
+}
+
+.card h3 {
+  margin: 0 0 0.8rem;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+.card p,
+.feature p,
+.outcomeBox li {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.feature {
+  padding: 0.4rem;
+}
+
+.outcomeBox ul {
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.outcomeBox li + li {
+  margin-top: 0.7rem;
+}
+
+@media (max-width: 840px) {
+  .grid,
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .page {
+    width: min(100% - 1.25rem, 1120px);
+  }
+
+  .hero {
+    padding-top: 3rem;
+  }
+}
