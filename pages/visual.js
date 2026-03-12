@@ -90,14 +90,6 @@ function PatternIcon({ type }) {
     );
   }
 
-  if (type === "diamond") {
-    return (
-      <svg viewBox="0 0 100 100" aria-hidden="true">
-        <path d="M50 20 78 50 50 80 22 50Z" />
-      </svg>
-    );
-  }
-
   if (type === "dots") {
     const points = [
       [28, 28], [50, 28], [72, 28],
@@ -147,17 +139,6 @@ function PatternIcon({ type }) {
             key={`${cx}-${cy}`}
             d={`M${cx} ${cy - 10} ${cx + 10} ${cy} ${cx} ${cy + 10} ${cx - 10} ${cy}Z`}
           />
-        ))}
-      </svg>
-    );
-  }
-
-  if (type === "stripes") {
-    const lines = Array.from({ length: 6 }, (_, i) => i);
-    return (
-      <svg viewBox="0 0 100 100" aria-hidden="true">
-        {lines.map((i) => (
-          <line key={i} x1={10 + i * 16} y1="8" x2={-18 + i * 16} y2="92" />
         ))}
       </svg>
     );
