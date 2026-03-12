@@ -60,7 +60,7 @@ export default function ColorsPage() {
         </div>
 
         <Link href="/" className={styles.backButton} aria-label="Back to home">
-          <CaretLeft weight="bold" className={styles.backArrowIcon} aria-hidden="true" />
+          <CaretLeft size={56} weight="bold" className={styles.backArrowIcon} aria-hidden="true" />
         </Link>
 
         <section className={`${styles.boardWrap} ${styles.colorsBoardWrap}`}>
@@ -73,7 +73,7 @@ export default function ColorsPage() {
                 disabled={page === 0}
                 aria-label="Previous color page"
               >
-                <CaretLeft weight="bold" className={styles.pagerIcon} aria-hidden="true" />
+                <CaretLeft size={22} weight="bold" className={styles.pagerIcon} aria-hidden="true" />
               </button>
               <div className={styles.pageDots} aria-hidden="true">
                 {Array.from({ length: totalPages }, (_, index) => (
@@ -90,7 +90,7 @@ export default function ColorsPage() {
                 disabled={page === totalPages - 1}
                 aria-label="Next color page"
               >
-                <CaretRight weight="bold" className={styles.pagerIcon} aria-hidden="true" />
+                <CaretRight size={22} weight="bold" className={styles.pagerIcon} aria-hidden="true" />
               </button>
             </div>
 

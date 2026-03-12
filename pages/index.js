@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { Eye, Palette } from "@phosphor-icons/react";
 import styles from "../styles/Home.module.css";
 
@@ -64,13 +65,13 @@ export default function Home() {
           <h1 className={styles.title}>Little Bloom</h1>
           <div className={styles.cardGrid}>
             {featureCards.map((card) => (
-              <a key={card.title} href={card.href} className={styles.actionCard}>
+              <Link key={card.title} href={card.href} className={styles.actionCard}>
                 <span className={styles.iconWrap}>
                   {card.icon === "visual" && <Eye weight="fill" aria-hidden="true" />}
                   {card.icon === "colors" && <Palette weight="fill" aria-hidden="true" />}
                 </span>
                 <strong className={styles.cardTitle}>{card.title}</strong>
-              </a>
+              </Link>
             ))}
           </div>
         </section>

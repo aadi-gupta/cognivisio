@@ -144,7 +144,7 @@ export default function VisualPlayerPage() {
           className={`${styles.backHint} ${showBack ? styles.backVisible : ""}`}
           aria-label="Back to visual menu"
         >
-          <CaretLeft weight="bold" className={styles.backArrowIcon} aria-hidden="true" />
+          <CaretLeft size={50} weight="bold" className={styles.backArrowIcon} aria-hidden="true" />
         </Link>
         <button
           type="button"
@@ -154,9 +154,9 @@ export default function VisualPlayerPage() {
         >
           <span className={styles.soundIcon}>
             {soundOn ? (
-              <SpeakerHigh weight="fill" className={styles.soundIconSvg} aria-hidden="true" />
+              <SpeakerHigh size={40} weight="fill" className={styles.soundIconSvg} aria-hidden="true" />
             ) : (
-              <SpeakerSlash weight="fill" className={styles.soundIconSvg} aria-hidden="true" />
+              <SpeakerSlash size={40} weight="fill" className={styles.soundIconSvg} aria-hidden="true" />
             )}
           </span>
         </button>

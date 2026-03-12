@@ -250,7 +250,7 @@ export default function VisualPage() {
         </div>
 
         <Link href="/" className={styles.backButton} aria-label="Back to home">
-          <CaretLeft weight="bold" className={styles.backArrowIcon} aria-hidden="true" />
+          <CaretLeft size={56} weight="bold" className={styles.backArrowIcon} aria-hidden="true" />
         </Link>
 
         <section className={styles.boardWrap}>
@@ -263,7 +263,7 @@ export default function VisualPage() {
                 disabled={page === 0}
                 aria-label="Previous visual patterns"
               >
-                <CaretLeft weight="bold" className={styles.pagerIcon} aria-hidden="true" />
+                <CaretLeft size={22} weight="bold" className={styles.pagerIcon} aria-hidden="true" />
               </button>
               <div className={styles.pageDots} aria-hidden="true">
                 {Array.from({ length: totalPages }, (_, index) => (
@@ -280,7 +280,7 @@ export default function VisualPage() {
                 disabled={page === totalPages - 1}
                 aria-label="Next visual patterns"
               >
-                <CaretRight weight="bold" className={styles.pagerIcon} aria-hidden="true" />
+                <CaretRight size={22} weight="bold" className={styles.pagerIcon} aria-hidden="true" />
               </button>
             </div>
             <div className={styles.grid}>
