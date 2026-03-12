@@ -52,6 +52,10 @@
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
+.animalPlayerPage {
+  background: #fff;
+}
+
 .backVisible {
   opacity: 1;
   pointer-events: auto;
@@ -95,6 +99,32 @@
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.animalDetail {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background-color: #ffffff;
+}
+
+.animalDetailShape {
+  width: min(95vmin, 95vw);
+  height: min(95vmin, 95vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animalDetailIcon {
+  stroke: #000;
+  fill: var(--animal-detail-fill, #000);
+  width: 100%;
+  height: 100%;
+  stroke-width: 0.4 !important;
 }
 
 @media (max-width: 720px) {

@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
+import { PawPrint } from "lucide-react";
 
 function EyeIcon() {
   return (
@@ -23,6 +24,19 @@ function PaletteIcon() {
   );
 }
 
+function AnimalIcon() {
+  return (
+    <span className={styles.animalIconStack}>
+      <span className={styles.animalIconFill} aria-hidden="true" />
+      <PawPrint
+        size={36}
+        strokeWidth={2.7}
+        className={styles.animalIconOutline}
+      />
+    </span>
+  );
+}
+
 const featureCards = [
   {
     title: "Visual",
@@ -35,6 +49,12 @@ const featureCards = [
     description: "Bright, soothing full-screen colors for simple color therapy play.",
     icon: "colors",
     href: "/colors",
+  },
+  {
+    title: "Animals",
+    description: "High-contrast silhouettes that keep infants engaged with playful shapes.",
+    icon: "animals",
+    href: "/animals",
   },
 ];
 
@@ -86,10 +106,15 @@ export default function Home() {
           <div className={styles.cardGrid}>
             {featureCards.map((card) => (
               <Link key={card.title} href={card.href} className={styles.actionCard}>
-                <span className={styles.iconWrap}>
-                  {card.icon === "visual" && <EyeIcon />}
-                  {card.icon === "colors" && <PaletteIcon />}
-                </span>
+              <span
+                className={`${styles.iconWrap} ${
+                  card.icon === "animals" ? styles.iconWrapAnimal : ""
+                }`}
+              >
+                {card.icon === "visual" && <EyeIcon />}
+                {card.icon === "colors" && <PaletteIcon />}
+                {card.icon === "animals" && <AnimalIcon />}
+              </span>
                 <strong className={styles.cardTitle}>{card.title}</strong>
               </Link>
             ))}

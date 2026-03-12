@@ -37,7 +37,10 @@
   --tile-auditory-bottom: #f77da0;
   --tile-toys-top: #ffb2c8;
   --tile-toys-bottom: #f77da0;
+  --tile-animals-top: #ffdaf1;
+  --tile-animals-bottom: #97b9ff;
   --tile-ink: #fffdf7;
+  --tile-animals-ink: #0b2440;
   --app-board-top: #266fdb;
   --app-board-bottom: #1d58c5;
   --app-board-shadow: rgba(13, 58, 135, 0.24);
