@@ -1,7 +1,27 @@
 import Head from "next/head";
 import Link from "next/link";
-import { Eye, Palette } from "@phosphor-icons/react";
 import styles from "../styles/Home.module.css";
+
+function EyeIcon() {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M6 32s9-14 26-14 26 14 26 14-9 14-26 14S6 32 6 32Z" />
+      <circle cx="32" cy="32" r="8" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function PaletteIcon() {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M32 10c-12.2 0-22 8.6-22 19.2C10 40 18.7 48 29.6 48H34c2.7 0 4.8 2 4.8 4.4 0 1.2.6 1.6 1.6 1.6C50.5 54 58 46 58 35.6 58 21.4 46.2 10 32 10Z" />
+      <circle cx="22" cy="24" r="3.5" fill="currentColor" stroke="none" />
+      <circle cx="32" cy="20" r="3.5" fill="currentColor" stroke="none" />
+      <circle cx="42" cy="24" r="3.5" fill="currentColor" stroke="none" />
+      <circle cx="24" cy="34" r="3.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
 const featureCards = [
   {
@@ -67,8 +87,8 @@ export default function Home() {
             {featureCards.map((card) => (
               <Link key={card.title} href={card.href} className={styles.actionCard}>
                 <span className={styles.iconWrap}>
-                  {card.icon === "visual" && <Eye weight="fill" aria-hidden="true" />}
-                  {card.icon === "colors" && <Palette weight="fill" aria-hidden="true" />}
+                  {card.icon === "visual" && <EyeIcon />}
+                  {card.icon === "colors" && <PaletteIcon />}
                 </span>
                 <strong className={styles.cardTitle}>{card.title}</strong>
               </Link>

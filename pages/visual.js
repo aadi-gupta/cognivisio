@@ -1,9 +1,24 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import styles from "../styles/Visual.module.css";
 import { visualExercises } from "../lib/visualExercises";
+
+function LeftIcon() {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M39 14 21 32l18 18" />
+    </svg>
+  );
+}
+
+function RightIcon() {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <path d="m25 14 18 18-18 18" />
+    </svg>
+  );
+}
 
 function PatternIcon({ type }) {
   if (type === "spiral") {
@@ -250,7 +265,7 @@ export default function VisualPage() {
         </div>
 
         <Link href="/" className={styles.backButton} aria-label="Back to home">
-          <CaretLeft size={56} weight="bold" className={styles.backArrowIcon} aria-hidden="true" />
+          <span className={styles.backArrowIcon}><LeftIcon /></span>
         </Link>
 
         <section className={styles.boardWrap}>
@@ -263,7 +278,7 @@ export default function VisualPage() {
                 disabled={page === 0}
                 aria-label="Previous visual patterns"
               >
-                <CaretLeft size={22} weight="bold" className={styles.pagerIcon} aria-hidden="true" />
+                <span className={styles.pagerIcon}><LeftIcon /></span>
               </button>
               <div className={styles.pageDots} aria-hidden="true">
                 {Array.from({ length: totalPages }, (_, index) => (
@@ -280,7 +295,7 @@ export default function VisualPage() {
                 disabled={page === totalPages - 1}
                 aria-label="Next visual patterns"
               >
-                <CaretRight size={22} weight="bold" className={styles.pagerIcon} aria-hidden="true" />
+                <span className={styles.pagerIcon}><RightIcon /></span>
               </button>
             </div>
             <div className={styles.grid}>

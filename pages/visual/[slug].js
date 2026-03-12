@@ -2,7 +2,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { CaretLeft, SpeakerHigh, SpeakerSlash } from "@phosphor-icons/react";
 import { visualExercises } from "../../lib/visualExercises";
 import { CanvasEngine } from "../../lib/visual/CanvasEngine";
 import { SpiralPattern } from "../../lib/visual/patterns/SpiralPattern";
@@ -40,6 +39,32 @@ const patternMap = {
   paw: PawPattern,
   cross: CrossPattern,
 };
+
+function LeftIcon() {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M39 14 21 32l18 18" />
+    </svg>
+  );
+}
+
+function SpeakerOnIcon() {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M10 24h12l14-12v40L22 40H10Z" fill="currentColor" stroke="none" />
+      <path d="M44 24c4 4 4 12 0 16M50 18c8 8 8 20 0 28" />
+    </svg>
+  );
+}
+
+function SpeakerOffIcon() {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M10 24h12l14-12v40L22 40H10Z" fill="currentColor" stroke="none" />
+      <path d="M44 22 56 42M56 22 44 42" />
+    </svg>
+  );
+}
 
 export default function VisualPlayerPage() {
   const canvasRef = useRef(null);
@@ -144,7 +169,7 @@ export default function VisualPlayerPage() {
           className={`${styles.backHint} ${showBack ? styles.backVisible : ""}`}
           aria-label="Back to visual menu"
         >
-          <CaretLeft size={50} weight="bold" className={styles.backArrowIcon} aria-hidden="true" />
+          <span className={styles.backArrowIcon}><LeftIcon /></span>
         </Link>
         <button
           type="button"
@@ -154,9 +179,9 @@ export default function VisualPlayerPage() {
         >
           <span className={styles.soundIcon}>
             {soundOn ? (
-              <SpeakerHigh size={40} weight="fill" className={styles.soundIconSvg} aria-hidden="true" />
+              <SpeakerOnIcon />
             ) : (
-              <SpeakerSlash size={40} weight="fill" className={styles.soundIconSvg} aria-hidden="true" />
+              <SpeakerOffIcon />
             )}
           </span>
         </button>
