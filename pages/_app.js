@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Fredoka } from "next/font/google";
+import { PatternSpeedProvider } from "../lib/patternSpeed";
 import "../styles/globals.css";
 
 const fredoka = Fredoka({
@@ -33,8 +34,10 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   return (
-    <div className={fredoka.variable}>
-      <Component {...pageProps} />
-    </div>
+    <PatternSpeedProvider>
+      <div className={fredoka.variable}>
+        <Component {...pageProps} />
+      </div>
+    </PatternSpeedProvider>
   );
 }

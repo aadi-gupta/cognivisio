@@ -253,34 +253,32 @@
   transform: scale(0.96);
 }
 
-.animalTile {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.animalTile svg {
-  width: 58%;
-  height: 58%;
-  fill: none;
-  stroke: #000;
-  color: #000;
-}
-
-.lucideAnimalIcon {
-  width: 70%;
-  height: 70%;
-  stroke: #000 !important;
-  color: #000 !important;
-  fill: none !important;
+.animalCard {
+  min-height: 0;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06), 0 10px 18px rgba(0, 0, 0, 0.12);
 }
 
 .tileMono {
   background: linear-gradient(180deg, #ffffff 0%, #eef3ff 100%);
   color: #000;
   box-shadow: inset 0 0 0 1px rgba(24, 51, 99, 0.08);
+}
+
+.tileSoon {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(227, 235, 255, 0.82) 100%);
+  color: rgba(38, 58, 99, 0.68);
+  box-shadow: inset 0 0 0 1px rgba(38, 58, 99, 0.1);
+  cursor: default;
+}
+
+.comingSoonText {
+  font-size: clamp(0.72rem, 1.45vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.15;
 }
 
 .tileColor {
@@ -330,8 +328,17 @@
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04), 0 8px 16px rgba(0, 0, 0, 0.08);
 }
 
+.tileSoon:hover {
+  transform: none;
+  box-shadow: inset 0 0 0 1px rgba(38, 58, 99, 0.1);
+}
+
 .tile:active {
   transform: translateY(2px) scale(0.98);
+}
+
+.tileSoon:active {
+  transform: none;
 }
 
 .tileIcon {
@@ -468,6 +475,14 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.45rem;
     padding: 0;
+  }
+
+  .animalTile svg {
+    width: min(5rem, 84%);
+  }
+
+  .animalLabel {
+    font-size: 0.68rem;
   }
 
   .colorCard,

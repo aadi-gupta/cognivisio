@@ -295,6 +295,7 @@
 .actionCard:nth-child(2) {
   background: linear-gradient(180deg, var(--tile-auditory-top) 0%, var(--tile-auditory-bottom) 100%);
 }
+
 .actionCard:nth-child(3) {
   background: linear-gradient(180deg, var(--tile-animals-top) 0%, var(--tile-animals-bottom) 100%);
 }
@@ -381,25 +382,16 @@
   mix-blend-mode: screen;
 }
 
-.animalIcon {
+.animalIconOutline {
   position: relative;
   z-index: 1;
-  color: #1f2340;
-  stroke: currentColor;
-  fill: none;
   width: 100%;
   height: 100%;
-}
-.animalIconOutline {
   color: #000;
   fill: none;
   stroke: currentColor;
 }
 
-.animalIcon {
-  width: 100%;
-  height: 100%;
-}
 
 .cardTitle {
   transition: transform 180ms ease;

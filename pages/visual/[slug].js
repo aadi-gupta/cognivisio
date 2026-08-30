@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import { usePatternSpeed } from "../../lib/patternSpeed";
 import { visualExercises } from "../../lib/visualExercises";
 import { createAmbientAudio } from "../../lib/visual/createAmbientAudio";
 import styles from "../../styles/VisualPlayer.module.css";
@@ -48,6 +49,15 @@ function SpeakerOffIcon() {
   );
 }
 
+function SettingsIcon() {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="8" />
+      <path d="M32 10v8M32 46v8M10 32h8M46 32h8M16.4 16.4l5.7 5.7M41.9 41.9l5.7 5.7M47.6 16.4l-5.7 5.7M22.1 41.9l-5.7 5.7" />
+    </svg>
+  );
+}
+
 export default function VisualPlayerPage() {
   const canvasRef = useRef(null);
   const hideTimerRef = useRef(null);
@@ -55,7 +65,9 @@ export default function VisualPlayerPage() {
   const wakeLockRef = useRef(null);
   const [showBack, setShowBack] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
   const [sessionStarted, setSessionStarted] = useState(false);
+  const { patternSpeed, setPatternSpeed } = usePatternSpeed();
   const router = useRouter();
 
   const exercise = useMemo(
@@ -107,6 +119,7 @@ export default function VisualPlayerPage() {
         phaseTransitionDuration: 3,
         invertDuration: 10,
         paletteMode: exercise.paletteMode,
+        timeScale: patternSpeed,
       });
       engine.start();
     };
@@ -119,7 +132,7 @@ export default function VisualPlayerPage() {
         engine.stop();
       }
     };
-  }, [exercise]);
+  }, [exercise, patternSpeed]);
 
   useEffect(() => {
     audioRef.current = createAmbientAudio();
@@ -189,16 +202,14 @@ export default function VisualPlayerPage() {
       }
     }
 
-    if (audioRef.current && soundOn) {
-      void audioRef.current.resume();
-    }
-
     if (hideTimerRef.current) {
       clearTimeout(hideTimerRef.current);
     }
 
     hideTimerRef.current = setTimeout(() => {
-      setShowBack(false);
+      if (!showSettings) {
+        setShowBack(false);
+      }
     }, 1800);
   };
 
@@ -212,6 +223,17 @@ export default function VisualPlayerPage() {
     await audioRef.current.resume();
     const enabled = audioRef.current.toggle();
     setSoundOn(enabled);
+  };
+
+  const toggleSettings = (event) => {
+    event.stopPropagation();
+    setShowBack(true);
+    setShowSettings((current) => !current);
+  };
+
+  const updatePatternSpeed = (event) => {
+    event.stopPropagation();
+    setPatternSpeed(Number(event.target.value));
   };
 
   if (!exercise) {
@@ -250,6 +272,38 @@ export default function VisualPlayerPage() {
             )}
           </span>
         </button>
+        <button
+          type="button"
+          className={`${styles.settingsHint} ${showBack ? styles.backVisible : ""}`}
+          aria-label={showSettings ? "Close pattern settings" : "Open pattern settings"}
+          aria-expanded={showSettings}
+          onClick={toggleSettings}
+        >
+          <span className={styles.soundIcon}>
+            <SettingsIcon />
+          </span>
+        </button>
+        {showSettings ? (
+          <section
+            className={styles.settingsPanel}
+            onPointerDown={(event) => event.stopPropagation()}
+            aria-label="Pattern settings"
+          >
+            <div className={styles.settingsHeader}>
+              <h2 className={styles.settingsTitle}>Speed</h2>
+              <span className={styles.settingsValue}>{patternSpeed.toFixed(1)}x</span>
+            </div>
+            <input
+              className={styles.settingsSlider}
+              type="range"
+              min="0"
+              max="3"
+              step="0.1"
+              value={patternSpeed}
+              onChange={updatePatternSpeed}
+            />
+          </section>
+        ) : null}
         <canvas ref={canvasRef} className={styles.canvas} />
       </main>
     </>
